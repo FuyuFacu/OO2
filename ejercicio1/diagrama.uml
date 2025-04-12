@@ -1,0 +1,35 @@
+@startuml
+class Usuario {
+  - nombre: String
+  - tweets: List<Twitt>
+  + <<create>> Usuario(nombre: String)
+  + getNombre(): String
+  + agregarTweet(tweet: Twitt): void
+  + noEstaVacio(): boolean
+  + eliminarTweets(): void
+  + getTweets(): List<Twitt>
+}
+
+class Twitt {
+  - texto: String
+  - tweet_origen: Twitt
+  + <<create>> Twitt(texto: String)
+  + getTexto(): String
+  + getTweetOrigen(): Twitt
+  + hacerRetweet(tweetOrigen: Twitt): void
+}
+
+class Twitter {
+  - listaUsuarios: List<Usuario>
+  + <<create>> Twitter()
+  + agregarUsuario(s: Usuario): void
+  + eliminarUsuario(s: Usuario): void
+  + contieneUsuario(s: Usuario): boolean
+  + usuarioNoRepetido(s: Usuario): boolean
+  + getListaUsuarios(): List<Usuario>
+}
+
+Usuario --> "0..*" Twitt : tweets
+Twitter --> "0..*" Usuario: listaUsuarios
+Twitt --> Twitt : tweet_origen (retweet)
+@enduml
