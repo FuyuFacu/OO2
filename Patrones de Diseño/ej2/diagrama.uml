@@ -1,0 +1,45 @@
+@startuml
+abstract class Personal {
+    +double sueldo()
+    +double calcularDescuento()
+    +abstract double sueldoBasico()
+    +abstract double calcularAdicionales()
+}
+
+abstract class EmpleadoConFamilia {
+    -boolean casado
+    -int cantHijos
+    -boolean tieneHijos
+    +EmpleadoConFamilia(boolean, int, boolean)
+    +boolean esCasado()
+    +int getCantHijos()
+    +boolean TieneHijos()
+}
+
+class Temporario {
+    -int cantHorasTrabajadas
+    +Temporario(boolean, int, boolean, int)
+    +double sueldoBasico()
+    +double calcularAdicionales()
+}
+
+class Planta {
+    -int cantHorasTrabajadas
+    -int antiguedad
+    +Planta(boolean, int, boolean, int, int)
+    +double sueldoBasico()
+    +double calcularAdicionales()
+}
+
+class Pasante {
+    -int cantExamenesRendidos
+    +Pasante(int)
+    +double sueldoBasico()
+    +double calcularAdicionales()
+}
+
+Personal <|-- EmpleadoConFamilia
+EmpleadoConFamilia <|-- Temporario
+EmpleadoConFamilia <|-- Planta
+Personal <|-- Pasante
+@enduml
