@@ -1,0 +1,36 @@
+@startuml
+' Definición de la clase Biblioteca
+class Biblioteca {
+    - socios: List<Socio>
+    - exporter: VoorheesExporter
+    + Biblioteca()
+    + agregarSocio(socio: Socio): void
+    + exportarSocios(): String
+    + getExporter(): VoorheesExporter
+    + setExporter(exporter: VoorheesExporter): void
+}
+
+' Definición de la clase Socio
+class Socio {
+    - nombre: String
+    - legajo: String
+    - email: String
+    + Socio(nombre: String, email: String, legajo: String)
+    + getNombre(): String
+    + setNombre(nombre: String): void
+    + getEmail(): String
+    + setEmail(email: String): void
+    + getLegajo(): String
+    + setLegajo(legajo: String): void
+}
+
+' Definición de la clase VoorheesExporter
+class VoorheesExporter {
+    - exportar(socio: Socio): String
+    + exportar(socios: List<Socio>): String
+}
+
+' Relaciones
+Biblioteca "1" *-- "*" Socio : contiene
+Biblioteca --> VoorheesExporter : usa
+@enduml
