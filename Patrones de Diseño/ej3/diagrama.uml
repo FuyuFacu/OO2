@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+
+interface Media <<Target>> {
+  + play()
+}
+
+class Audio {
+  + play()
+}
+
+class VideoFile {
+  + play()
+}
+
+class VideoStream <<Adaptee>> {
+  + reproduce()
+}
+
+class VideoStreamAdapter <<Adapter>> {
+  - videoStream : VideoStream
+  + VideoStreamAdapter(stream : VideoStream)
+  + play()
+}
+
+class MediaPlayer <<Client>> {
+   - mediaList : List<Media>
+   + addMedia(media : Media)
+   + playAll()
+}
+
+MediaPlayer o-- "*" Media : uses >
+Audio ..|> Media
+VideoFile ..|> Media
+VideoStreamAdapter ..|> Media
+VideoStreamAdapter o-- "1" VideoStream : adapts >
+@enduml
