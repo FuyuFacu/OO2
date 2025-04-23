@@ -1,0 +1,19 @@
+@startuml
+class VoorheesExporter {
+  + exportar(List<Socio>): String
+}
+
+class JSONExporter extends VoorheesExporter
+class JacksonExporter extends VoorheesExporter
+
+class Biblioteca {
+  - socios: List<Socio>
+  - exporter: VoorheesExporter
+  + setExporter(VoorheesExporter): void
+  + exportarSocios(): String
+}
+
+Biblioteca --> VoorheesExporter : usa
+VoorheesExporter <|-- JSONExporter
+VoorheesExporter <|-- JacksonExporter
+@enduml
