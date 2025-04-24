@@ -1,0 +1,72 @@
+@startuml
+
+  interface Estado {
+    + start(item: ToDoItem): void
+    + togglePause(item: ToDoItem): void
+    + finish(item: ToDoItem): void
+    + workedTime(item: ToDoItem): Duration
+    + addComment(item: ToDoItem, comment: String): void
+  }
+
+  class ToDoItem {
+    - name: String
+    - comments: List<String>
+    - estado: Estado
+    - startDate: LocalDate
+    - endDate: LocalDate
+
+    + ToDoItem(name: String)
+    + start(): void
+    + togglePause(): void
+    + finish(): void
+    + workedTime(): Duration
+    + addComment(comment: String): void
+
+    + addCommentInternal(comment: String): void
+    + setEstado(e: Estado): void
+    + setStartTime(): void
+    + setEndTime(): void
+    + getStartDate(): LocalDate
+    + getEndDate(): LocalDate
+  }
+
+  class Pending {
+    + start(item: ToDoItem): void
+    + togglePause(item: ToDoItem): void
+    + finish(item: ToDoItem): void
+    + workedTime(item: ToDoItem): Duration
+    + addComment(item: ToDoItem, comment: String): void
+  }
+
+  class InProgress {
+    + start(item: ToDoItem): void
+    + togglePause(item: ToDoItem): void
+    + finish(item: ToDoItem): void
+    + workedTime(item: ToDoItem): Duration
+    + addComment(item: ToDoItem, comment: String): void
+  }
+
+  class Paused {
+    + start(item: ToDoItem): void
+    + togglePause(item: ToDoItem): void
+    + finish(item: ToDoItem): void
+    + workedTime(item: ToDoItem): Duration
+    + addComment(item: ToDoItem, comment: String): void
+  }
+
+  class Finished {
+    + start(item: ToDoItem): void
+    + togglePause(item: ToDoItem): void
+    + finish(item: ToDoItem): void
+    + workedTime(item: ToDoItem): Duration
+    + addComment(item: ToDoItem, comment: String): void
+  }
+
+  ToDoItem o-- Estado : estado
+  Estado <|-- Pending
+  Estado <|-- InProgress
+  Estado <|-- Paused
+  Estado <|-- Finished
+
+}
+@enduml
