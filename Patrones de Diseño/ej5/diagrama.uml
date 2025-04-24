@@ -1,0 +1,51 @@
+@startuml
+interface ISugeridor {
+    + sugerir(peliculas: List<Pelicula>, reproducidas: List<Pelicula>, limite: int): List<Pelicula>
+  }
+
+  class Decodificador {
+    - limite: int = 3
+    - peliculas: List<Pelicula>
+    - reproducidas: List<Pelicula>
+    - sugeridor: ISugeridor
+    + Decodificador()
+    + setSugeridor(s: ISugeridor): void
+    + addPeliculaGrilla(p: Pelicula): void
+    + addPeliculaReproducida(p: Pelicula): void
+    + obtenerSugerencias(): List<Pelicula>
+  }
+
+  class Novedad {
+    + sugerir(peliculas: List<Pelicula>, reproducidas: List<Pelicula>, limite: int): List<Pelicula>
+  }
+
+  class Puntaje {
+    + sugerir(peliculas: List<Pelicula>, reproducidas: List<Pelicula>, limite: int): List<Pelicula>
+  }
+
+  class Similaridad {
+    + sugerir(peliculas: List<Pelicula>, reproducidas: List<Pelicula>, limite: int): List<Pelicula>
+  }
+
+  class Pelicula {
+    - titulo: String
+    - fechaEstreno: Date
+    - similares: List<Pelicula>
+    - puntaje: int
+    + Pelicula(titulo: String, fechaEstreno: Date, puntaje: int)
+    + addPeliculaSimilar(otra: Pelicula): void
+    + getSimilares(): List<Pelicula>
+    + getFechaEstreno(): Date
+    + getPuntaje(): int
+    + getTitulo(): String
+  }
+
+  Decodificador "1" o-- "*" Pelicula : peliculas
+  Decodificador "1" o-- "*" Pelicula : reproducidas
+  Decodificador --> ISugeridor : utiliza
+  ISugeridor <|.. Novedad
+  ISugeridor <|.. Puntaje
+  ISugeridor <|.. Similaridad
+
+}
+@enduml
