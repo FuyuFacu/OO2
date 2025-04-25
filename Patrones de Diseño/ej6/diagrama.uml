@@ -1,0 +1,45 @@
+@startuml
+class Excursion {
+    - String nombre
+    - Date fechaInicio
+    - Date fechaFin
+    - String puntoEncuentro
+    - double costo
+    - int cupoMinimo
+    - int cupoMaximo
+    - List<Usuario> inscriptos
+    - List<Usuario> espera
+    - IEstado estado
+
+    + Excursion(...)
+    + void inscribir(Usuario)
+    + String obtenerInformacion()
+    + void setEstado(IEstado)
+    + IEstado getEstado()
+  }
+
+  class Usuario {
+    - String nombre
+    - String apellido
+    - String email
+    + Usuario(...)
+    + getEmail()
+  }
+
+  interface IEstado {
+    + void inscribirse(Excursion, Usuario)
+    + String obtenerInformacion(Excursion)
+  }
+
+  class EstadoProvisorio
+  class EstadoDefinitivo
+  class EstadoCompleto
+
+  IEstado <|.. EstadoProvisorio
+  IEstado <|.. EstadoDefinitivo
+  IEstado <|.. EstadoCompleto
+
+  Excursion --> IEstado
+  Excursion --> "0..*" Usuario : inscriptos / espera
+}
+@enduml
