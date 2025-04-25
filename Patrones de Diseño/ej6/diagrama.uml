@@ -11,19 +11,31 @@ class Excursion {
     - List<Usuario> espera
     - IEstado estado
 
-    + Excursion(...)
+    + Excursion(String, Date, Date, String, double, int, int)
     + void inscribir(Usuario)
     + String obtenerInformacion()
+    + void agregarAListaDeEspera(Usuario)
+    + void agregarAListaInscriptos(Usuario)
+    + void transicionarAInscriptos()
+    + String imprimirNormal()
+    + String imprimirInicioExcursion()
+    + String getEmailsUsuariosInscriptos()
+    + String imprimirProcesoExcursion()
+    + boolean cupoMinimoAlcanzado()
+    + boolean cuposAgotados()
     + void setEstado(IEstado)
     + IEstado getEstado()
   }
 
   class Usuario {
     - String nombre
-    - String apellido
     - String email
-    + Usuario(...)
-    + getEmail()
+    - String apellido
+
+    + Usuario(String, String, String)
+    + String getEmail()
+    + String getNombre()
+    + String getApellido()
   }
 
   interface IEstado {
@@ -31,15 +43,26 @@ class Excursion {
     + String obtenerInformacion(Excursion)
   }
 
-  class EstadoProvisorio
-  class EstadoDefinitivo
-  class EstadoCompleto
+  class EstadoProvisorio {
+    + void inscribirse(Excursion, Usuario)
+    + String obtenerInformacion(Excursion)
+  }
 
+  class EstadoDefinitivo {
+    + void inscribirse(Excursion, Usuario)
+    + String obtenerInformacion(Excursion)
+  }
+
+  class EstadoCompleto {
+    + void inscribirse(Excursion, Usuario)
+    + String obtenerInformacion(Excursion)
+  }
+
+  Excursion --> IEstado
   IEstado <|.. EstadoProvisorio
   IEstado <|.. EstadoDefinitivo
   IEstado <|.. EstadoCompleto
 
-  Excursion --> IEstado
-  Excursion --> "0..*" Usuario : inscriptos / espera
+  Excursion "0..*" --> "0..*" Usuario : inscriptos / espera
 }
 @enduml
