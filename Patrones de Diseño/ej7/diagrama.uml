@@ -1,0 +1,43 @@
+@startuml
+class Calculadora {
+    - double valorAcumulado
+    - EstadoCalculadora estado
+    + setValor(double)
+    + mas()
+    + menos()
+    + por()
+    + dividido()
+    + borrar()
+    + getResultado() : String
+}
+
+interface EstadoCalculadora {
+    + setValor(Calculadora, double)
+    + getResultado(Calculadora) : String
+    + mas(Calculadora)
+    + menos(Calculadora)
+    + por(Calculadora)
+    + dividido(Calculadora)
+    + borrar(Calculadora)
+}
+
+abstract class AbstractEstado
+
+class EstadoInicial
+class EstadoMas
+class EstadoMenos
+class EstadoPor
+class EstadoDividido
+class EstadoError
+
+Calculadora --> EstadoCalculadora
+
+EstadoInicial --|> AbstractEstado
+EstadoMas --|> AbstractEstado
+EstadoMenos --|> AbstractEstado
+EstadoPor --|> AbstractEstado
+EstadoDividido --|> AbstractEstado
+
+AbstractEstado ..|> EstadoCalculadora
+EstadoError ..|> EstadoCalculadora
+@enduml
