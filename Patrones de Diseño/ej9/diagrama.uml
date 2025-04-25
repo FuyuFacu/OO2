@@ -1,0 +1,57 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Usuario {
+  -nombre: String
+  +getNombre(): String
+  +getAutos(): AutoEnAlquiler[*]
+}
+
+class AutoEnAlquiler {
+  -precioPorDia: Real
+  -cantidadPlazas: Integer
+  -marca: String
+  -cancelacion: PoliticaCancelacion
+  +getPrecioPorDia(): Real
+  +getCantidadPlazas(): Integer
+  +getMarca(): String
+  +getCancelacion(): PoliticaCancelacion
+  +setCancelacion(politica: PoliticaCancelacion)
+}
+
+class Reserva {
+  -cantidadDias: Integer
+  -fecha: Date
+  +montoAPagar(): Real
+  +montoAReembolsar(fechaCancelacion: Date): Real
+  +getFecha(): Date
+  +getConductor(): Usuario
+}
+
+abstract class PoliticaCancelacion {
+  +montoAreembolsar(reserva: Reserva, fecha: Date): Real
+}
+
+class CancelacionFlexible {
+  +montoAreembolsar(reserva: Reserva, fecha: Date): Real
+}
+
+class CancelacionModerada {
+  +montoAreembolsar(reserva: Reserva, fecha: Date): Real
+}
+
+class CancelacionEstricta {
+  +montoAreembolsar(reserva: Reserva, fecha: Date): Real
+}
+
+' Relaciones entre clases
+
+Usuario "1" --> "0..*" AutoEnAlquiler : autos
+Reserva "1" --> "1" Usuario : conductor
+Reserva "1" --> "1" AutoEnAlquiler : auto
+AutoEnAlquiler --> PoliticaCancelacion : política
+
+PoliticaCancelacion <|-- CancelacionFlexible
+PoliticaCancelacion <|-- CancelacionModerada
+PoliticaCancelacion <|-- CancelacionEstricta
+@enduml
