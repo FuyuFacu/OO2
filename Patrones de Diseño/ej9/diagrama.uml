@@ -28,7 +28,7 @@ class Reserva {
   +getConductor(): Usuario
 }
 
-abstract class PoliticaCancelacion {
+interface PoliticaCancelacion {
   +montoAreembolsar(reserva: Reserva, fecha: Date): Real
 }
 
@@ -51,7 +51,7 @@ Reserva "1" --> "1" Usuario : conductor
 Reserva "1" --> "1" AutoEnAlquiler : auto
 AutoEnAlquiler --> PoliticaCancelacion : política
 
-PoliticaCancelacion <|-- CancelacionFlexible
-PoliticaCancelacion <|-- CancelacionModerada
-PoliticaCancelacion <|-- CancelacionEstricta
+PoliticaCancelacion <|.. CancelacionFlexible
+PoliticaCancelacion <|.. CancelacionModerada
+PoliticaCancelacion <|.. CancelacionEstricta
 @enduml
