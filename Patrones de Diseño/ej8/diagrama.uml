@@ -1,0 +1,59 @@
+@startuml
+
+interface Connection {
+    +sendData(data: String, crc: long): String
+    +pict(): String
+}
+
+interface CRCStrategy {
+    +crcFor(datos: String): long
+}
+
+class CRC16_Calculator implements CRCStrategy {
+    +crcFor(datos: String): long
+}
+
+class CRC32_Calculator implements CRCStrategy {
+    +crcFor(datos: String): long
+}
+
+class CuatroGConnection implements Connection {
+    -symbol: String
+    +CuatroGConnection(symbol: String)
+    +sendData(data: String, crc: long): String
+    +pict(): String
+    +symb(): String
+}
+
+class WifiConn implements Connection {
+    -pict: String
+    +WifiConn(pict: String)
+    +sendData(data: String, crc: long): String
+    +pict(): String
+}
+
+class Display {
+    +showBanner(img: String): String
+}
+
+class Ringer {
+    +ring(): void
+}
+
+class Dispositivo {
+    -ringer: Ringer
+    -display: Display
+    -connection: Connection
+    -crcCalculator: CRCStrategy
+    +Dispositivo(ringer: Ringer, display: Display)
+    +send(data: String): String
+    +conectar(nuevaConexion: Connection): String
+    +configurarCRC(nuevoCRC: CRCStrategy): void
+}
+
+Dispositivo "1" *-- "1" Ringer : has
+Dispositivo "1" *-- "1" Display : has
+Dispositivo "1" *-- "1" Connection : uses
+Dispositivo "1" *-- "1" CRCStrategy : uses
+
+@enduml
