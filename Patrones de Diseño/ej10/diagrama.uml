@@ -1,0 +1,55 @@
+@startuml
+interface Cifrador {
+  + cifrar(mensaje: String): String
+  + descifrar(mensaje: String): String
+}
+
+class FeistelCipher {
+  - key: String
+  - rounds: int
+  + FeistelCipher(keyStr: String)
+  - feistelBlock(block: byte[]): byte[]
+  + encode(message: String): String
+}
+
+class Mensajero {
+  - cifrador: Cifrador
+  + Mensajero(cifrador: Cifrador)
+  + setCifrador(nuevoCifrador: Cifrador)
+  + enviar(mensaje: String): String
+  + recibir(mensajeCifrado: String): String
+}
+
+class RC4 {
+  - S: byte[]
+  - i: int
+  - j: int
+  - keySetup(key: byte[])
+  - process(data: byte[], key: byte[]): byte[]
+  + encriptar(mensaje: String, clave: String): String
+  + desencriptar(mensajeCifrado: String, clave: String): String
+}
+
+class CifradorFeistel {
+  - feistelCipher: FeistelCipher
+  + CifradorFeistel(clave: String)
+  + cifrar(mensaje: String): String
+  + descifrar(mensaje: String): String
+}
+
+class CifradorRC4 {
+  - rc4: RC4
+  - clave: String
+  + CifradorRC4(clave: String)
+  + cifrar(mensaje: String): String
+  + descifrar(mensaje: String): String
+}
+
+Mensajero --|> Cifrador : cifrador
+CifradorFeistel .up.|> Cifrador
+CifradorRC4 .up.|> Cifrador
+
+CifradorFeistel -- FeistelCipher
+CifradorRC4 -- RC4
+}
+@enduml
