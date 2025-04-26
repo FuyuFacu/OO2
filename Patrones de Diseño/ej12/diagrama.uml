@@ -1,0 +1,38 @@
+@startuml
+abstract class FileSystemEntry {
+  - nombre: String
+  - fechaDeCreacion: Date
+  + getNombre(): String
+  + getFechaDeCreacion(): Date
+  + getTamano(): Integer
+}
+
+class Archivo {
+  - sizeEnBytes: Integer
+  + <<create>> Archivo(nombre: String, fechaDeCreacion: Date, sizeEnBytes: Integer)
+  + getTamano(): Integer
+}
+
+class Directorio {
+  - componentes: List<FileSystemEntry>
+  + <<create>> Directorio(nombre: String, fechaDeCreacion: Date, tamano: Integer)
+  + agregarComponente(componente: FileSystemEntry)
+  + getTamano(): Integer
+}
+
+class FileSystem {
+  - raiz: Directorio
+  + <<create>> FileSystem(raiz: Directorio)
+  + tamanoTotalOcupado(): Integer
+  + archivoMasGrande(): Archivo
+  + archivoMasNuevo(): Archivo
+  + buscar(nombre: String): FileSystemEntry
+  + buscarTodos(nombre: String): FileSystemEntry[*]
+  + listadoDeContenido(): String
+}
+
+FileSystemEntry <|-- Archivo
+FileSystemEntry <|-- Directorio
+FileSystem *-- FileSystemEntry : raíz
+Directorio *-- FileSystemEntry : contiene
+@enduml
