@@ -1,0 +1,50 @@
+@startuml
+interface Prenda {
+  + calcularValor(): double
+  + calcularValorPrendario(): double
+}
+
+class Automovil {
+  - cantAniosAntiguedad: int
+  - costo0km: double
+  - modelo: String
+  + <<create>> Automovil(cantAniosAntiguedad: int, costo0km: double, modelo: String)
+  + calcularValor(): double
+  + calcularValorPrendario(): double
+  + getModelo(): String
+}
+
+class Inmueble{
+  - direccion: String
+  - superficie: double
+  - costoPorM2: double
+  + <<create>> Inmueble(direccion: String, superficie: double, costoPorM2: double)
+  + calcularValor(): double
+  + calcularValorPrendario(): double
+  + getDireccion(): String
+}
+
+class Alquiler{
+  - comienzoContrato: LocalDate
+  - finContrato: LocalDate
+  - costoMensual: double
+  + <<create>> Alquiler(comienzoContrato: LocalDate, finContrato: LocalDate, costoMensual: double)
+  + calcularValor(): double
+  + calcularValorPrendario(): double
+}
+
+class Mixta {
+  - combinaciones: List<Prenda>
+  + <<create>> Mixta()
+  + agregarPrenda(p: Prenda): void
+  + calcularValor(): double
+  + calcularValorPrendario(): double
+}
+
+
+Prenda <|.. Automovil
+Prenda <|.. Inmueble
+Prenda <|.. Alquiler
+Prenda <|.. Mixta
+Mixta *-- "0..*" Prenda : componentes
+@enduml
