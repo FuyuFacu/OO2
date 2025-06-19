@@ -1,0 +1,72 @@
+@startuml
+
+interface FileManager {
+ +getNombre(): String
+ +getFechaCreacion(): String
+ +getExtension(): String
+ +getTamanio(): String
+ +getFechaModificacion(): String
+ +getPermisos(): String
+ +prettyPrint(): String
+}
+
+
+
+class EfectoExtension <<ConcreteDecorator>> extends EfectoFile {
+ +prettyPrint(): String
+
+}
+
+class EfectoFechaCreacion <<ConcreteDecorator>> extends EfectoFile {
+ +prettyPrint(): String
+}
+
+
+class EfectoFechaModificacion <<ConcreteDecorator>> extends EfectoFile {
+ +prettyPrint(): String
+}
+
+
+class EfectoPermisos <<ConcreteDecorator>> extends EfectoFile {
+ +prettyPrint(): String
+}
+
+class EfectoTamanio <<ConcreteDecorator>> extends EfectoFile {
+ +prettyPrint(): String
+}
+
+class EfectoFile <<Decorator>> implements FileManager {
+ +<<constructor>> EfectoFile(...)
+ +getNombre(): String
+ +getExtension(): String
+ +getTamanio(): String
+ +getFechaModificacion(): String
+ +getPermisos(): String
+ +getFechaCreacion(): String
+ +prettyPrint(): String
+ 
+}
+
+class FileOO2 <<Concrete Component>> implements FileManager {
+ -nombre: String
+ -extension: String
+ -tamanio: String
+ -fechaModificacion: String
+ -fechaCreacion: String
+ -permisos: String
+
+ <<constructor>> FileOO2(..)
+ +getNombre(): String
+ +getFechaCreacion(): String
+ +getExtension(): String
+ +getTamanio(): String
+ +getFechaModificacion(): String
+ +getPermisos(): String
+ +prettyPrint(): String
+
+}
+
+
+EfectoFile -> "1" FileManager: component
+
+@enduml
