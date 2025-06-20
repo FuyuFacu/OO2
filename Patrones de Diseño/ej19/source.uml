@@ -1,0 +1,56 @@
+@startuml
+class HomeWeatherStation <<Concrete Component>> implements WeatherData{
+ -temperaturaf
+ -presion_atmosferica
+ -radiacion_solar
+ -temperaturas = Double[*]
+
+ <<constructor>> HomeWeatherStation(...)
+ +getTemperatura(): double
+ +getPresion(): double
+ +getRadiacionSolar(): double
+ +getTemperaturas(): Double[*]
+ +displayData(): String
+}
+
+interface WeatherData {
+ +getTemperatura(): double
+ +getPresion(): double
+ +getRadiacionSolar(): double
+ +getTemperaturas(): Double[*]
+ +displayData(): String
+}
+
+abstract class WeatherDecorator <<Decorator>> implements WeatherData {
+ <<contructor>> WeatherDecorator(...)
+ +getTemperatura(): double
+ +getTemperaturas(): double[*]
+ +getPresion(): double
+ +getRadiacionSolar(): double
+ +displayData(): String
+
+}
+
+class WeatherPromedio <<ConcreteDecorator>> extends WeatherDecorator {
+ displayData(): String
+}
+
+class WeatherTemperaturaFarenheit <<ConcreteDecorator>> extends WeatherDecorator {
+ +displayData(): String
+}
+
+class WeatherTemperaturaGrados <<ConcreteDecorator>> extends WeatherDecorator {
+ +displayData(): String
+}
+
+class WeatherTempsMinYMax <<ConcreteDecorator>> extends WeatherDecorator {
+ +displayData(): String
+ +getMinimo(temps: Double[*]): double
+ +getMaximo(temps: Dobule[*]): double
+}
+
+
+
+
+WeatherDecorator -> "1" WeatherData: component
+@enduml
