@@ -1,0 +1,136 @@
+@startuml
+class Personaje {
+ -nombre: String
+ -health: int
+
+ +<<constructor>> Personaje(...)
+ +enfrentamiento(P: Personaje): void
+ +hasHealth(): boolean
+ +recibirdanio(arma: Arma): void
+ +getArmadura(): Armadura
+ +agregarHabilidad(H: Habilidad): void
+ +setArma(arma: Arma): void
+ +decreaseHealth(value: int): void
+ +getArma(): Arma
+
+
+}
+
+interface IBuilder {
+ +construirArma()
+ +construirHabilidades()
+ +construirArmadura()
+
+}
+
+abstract class Builder implements IBuilder {
+ +<<constructor>> Builder(...)
+ +reset(): void
+ +<<abstract>> construirArma()
+ +<<abstract>> construirHabilidades()
+ +<<abstract>> construirArmadura()
+
+}
+
+class Director {
+  + construir(concreteBuilder: IBuilder): void
+}
+
+class BuilderGuerrero extends Builder {
+  + construirArmadura()
+  + construirHabilidades()
+  + construirArma()
+}
+
+class BuilderArquero extends Builder {
+  + construirArmadura()
+  + construirHabilidades()
+  + construirArma()
+}
+
+class BuilderMago extends Builder {
+  + construirArmadura()
+  + construirHabilidades()
+  + construirArma()
+}
+
+class BuilderThoor extends Builder {
+  + construirArmadura()
+  + construirHabilidades()
+  + construirArma()
+}
+
+
+interface Armadura {
+  + recibirDanioEspada(P: Personaje)
+  + recibirDanioArco(P: Personaje)
+  + recibirDanioBaston(P: Personaje)
+  + recibirDanioMartillo(P: Personaje)
+}
+
+class ArmaduraCuero implements Armadura {
+  + recibirDanioEspada(P: Personaje)
+  + recibirDanioArco(P: Personaje)
+  + recibirDanioBaston(P: Personaje)
+  + recibirDanioMartillo(P: Personaje)
+}
+
+class ArmaduraHierro implements Armadura {
+  + recibirDanioEspada(P: Personaje)
+  + recibirDanioArco(P: Personaje)
+  + recibirDanioBaston(P: Personaje)
+  + recibirDanioMartillo(P: Personaje)
+}
+
+class ArmaduraAcero implements Armadura {
+  + recibirDanioEspada(P: Personaje)
+  + recibirDanioArco(P: Personaje)
+  + recibirDanioBaston(P: Personaje)
+  + recibirDanioMartillo(P: Personaje)
+}
+
+interface Arma {
+  + atacar(P: Personaje)
+}
+
+class Espada implements Arma {
+  + atacar(P: Personaje)
+}
+
+class Arco implements Arma {
+  + atacar(P: Personaje)
+}
+
+class BastonDeMago implements Arma {
+  + atacar(P: Personaje)
+}
+
+class Martillo implements Arma {
+  + atacar(P: Personaje)
+}
+
+
+interface Habilidad {
+}
+
+class CombateCuerpoACuerpo implements Habilidad {
+}
+
+class CombateADistancia implements Habilidad {
+}
+
+class Magia implements Habilidad {
+}
+
+class LanzarRayos implements Habilidad {
+}
+
+
+
+
+Director --> IBuilder: usa >
+Builder  -> "1" Personaje: contiene
+Personaje -> "0..[*]" Habilidad
+Personaje -> "1" Armadura: contiene
+Personaje -> "1" Arma: contiene
+@enduml
