@@ -1,0 +1,85 @@
+@startuml
+abstract class TemplatePlan {
+ +calcularCostoMensual(salario: double, cantIntegrantes: int)
+
+ +<<abstract>> calcularMontoFijo(): double 
+ +<<abstract>> cargoFamiliar(cantIntegrantes: int, salario: double): double 
+ +<<abstract>> coberturaViajera(salario: double, cantIntegrantes: int): double 
+ +<<abstract>> seguroInternacion(): double 
+}
+
+abstract class Plan extends TemplatePlan {
+ -montoBase: double
+ -cargoFamiliar: double
+ -fechaContratacion: LocalDate
+  
+ +setCoseguro(coseguro: Coseguro): void
+ +getMontoBase(): double
+ +getCargoFamiliar(): double
+ +getFechaContratacion(): LocalDate
+ +tieneCoseguro(): boolean
+ +getCoseguro(): Coseguro
+ +getDescuento(muestra: double, porcentaje: int): double
+
+ +<<abstract>> calcularMontoFijo(): double 
+ +<<abstract>> cargoFamiliar(cantIntegrantes: int, salario: double): double 
+ +<<abstract>> coberturaViajera(salario: double, cantIntegrantes: int): double 
+ +<<abstract>> seguroInternacion(): double 
+
+}
+
+
+class Afiliado {
+ -nombre: String;
+ -familiaresACargo: int;
+ -salario: double;
+ -fechaNacimiento: Date;
+
+ +calcularCostoMensual(): double
+ +setPlan(plan: Plan): void
+ 
+
+}
+
+class Coseguro {
+ -nombre: String;
+ -fecha: LocalDate;
+ -porcentajeDescuento: int;
+ -montoCoberturaViajes: double;
+
+ +getNombre(): String
+ +getFecha(): LocalDate
+ +getPorcentajeDescuento(): int
+ +getMontoCoberturaViajes(): double
+
+}
+
+
+
+class PlanIntegral extends Plan {
+ +calcularMontoFijo(): double 
+ +cargoFamiliar(cantIntegrantes: int, salario: double): double 
+ +coberturaViajera(salario: double, cantIntegrantes: int): double 
+ +seguroInternacion(): double 
+}
+
+
+class PlanMedico extends Plan {
+ +calcularMontoFijo(): double 
+ +cargoFamiliar(cantIntegrantes: int, salario: double): double 
+ +coberturaViajera(salario: double, cantIntegrantes: int): double 
+ +seguroInternacion(): double 
+}
+
+
+class PlanPremium extends Plan {
+ +calcularMontoFijo(): double;
+ +double cargoFamiliar(cantIntegrantes: int, salario: double);
+ +double coberturaViajera(salario: double, cantIntegrantes: int);
+ +double seguroInternacion();
+}
+
+Afiliado -> "0..1" Plan : contiene
+Afiliado -> "0..1" Coseguro : contiene
+Plan -> "0..1" Coseguro : contiene
+@enduml
