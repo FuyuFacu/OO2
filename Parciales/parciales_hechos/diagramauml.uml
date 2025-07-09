@@ -1,0 +1,81 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+interface IWeather {
+    +getTemperaturaFahrenheit(): double
+    +getPresion(): double
+    +getRadiacionSolar(): double
+    +getTemperaturasFahrenheit(): List<Double>
+    +display(): String
+}
+
+class HomeWeatherStation {
+    -temperaturasFahrenheit: List<Double>
+    +getTemperaturaFahrenheit(): double
+    +getPresion(): double
+    +getRadiacionSolar(): double
+    +getTemperaturasFahrenheit(): List<Double>
+}
+
+class HomeWeatherStationAdapter {
+    -adaptee: HomeWeatherStation
+    +getTemperaturaFahrenheit(): double
+    +getPresion(): double
+    +getRadiacionSolar(): double
+    +getTemperaturasFahrenheit(): List<Double>
+    +display(): String
+}
+
+HomeWeatherStationAdapter --> HomeWeatherStation
+HomeWeatherStationAdapter ..|> IWeather
+
+' Null Object
+
+
+class WeatherNulo implements IWeather {
+    +getTemperaturaFahrenheit(): double
+    +getPresion(): double
+    +getRadiacionSolar(): double
+    +getTemperaturasFahrenheit(): List<Double>
+    +display(): String
+}
+
+
+
+' Decorator base
+
+
+abstract class Weather implements IWeather{
+    -component: IWeather
+    +Weather(component: IWeather)
+    +getTemperaturaFahrenheit(): double
+    +getPresion(): double
+    +getRadiacionSolar(): double
+    +getTemperaturasFahrenheit(): List<Double>
+    +convertirFarenACelcius(F: double): double
+    +display(): String
+}
+
+
+' Decoradores concretos
+
+
+class WeatherPresion extends Weather {
+    +display(): String
+}
+
+class WeatherRadiacionSolar extends Weather {
+    +display(): String
+}
+
+class WeatherPromedioTemperaturas extends Weather {
+    +display(): String
+}
+
+class WeatherTemperaturaCelsius extends Weather {
+    +display(): String
+}
+
+
+@enduml
