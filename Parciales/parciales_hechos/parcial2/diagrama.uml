@@ -1,0 +1,62 @@
+@startuml
+interface IEstado { 
+ +completar(tarea: ITarea) 
+ +empezar(tarea: ITarea) 
+
+}
+
+interface ITarea { 
+ +duracionEstimada(): int 
+ +tiempoUtilizadoTarea(): double 
+ +avanceTarea(): double 
+ +iniciarTarea() 
+ +completarTarea() 
+ +setEstado(estado: IEstado) 
+}
+
+class EstadoNoEmpezado implements IEstado{ 
+ +completar(tarea: ITarea) 
+ +empezar(tarea: ITarea) 
+}
+
+class EstadoEmpezado implements IEstado { 
+ +completar(tarea: ITarea) 
+ +empezar(tarea: ITarea) 
+}
+
+class EstadoFinalizado implements IEstado { 
+ +completar(tarea: ITarea) 
+ +empezar(tarea: ITarea) 
+}
+
+class TareaSimple implements ITarea{ 
+ -nombre: String 
+ -descripcion: String 
+ -duracionEstimada: int 
+ -comienzo: long 
+ -estadoTarea: IEstado 
+ +duracionEstimada(): int 
+ +tiempoUtilizadoTarea(): double 
+ +avanceTarea(): double 
+ +iniciarTarea() +completarTarea() 
+ +setEstado(estado: IEstado) 
+}
+
+class TareaCompleja { 
+ -tareas: List 
+ +duracionEstimada(): int 
+ +tiempoUtilizadoTarea(): double 
+ +avanceTarea(): double 
+ +iniciarTarea() 
+ +completarTarea() 
+ +setEstado(estado: IEstado) 
+}
+
+
+
+TareaSimple --> "1" IEstado : estadoTarea
+
+TareaCompleja -up-> ITarea : 0..*
+TareaCompleja ..|> ITarea
+
+@enduml
