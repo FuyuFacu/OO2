@@ -1,0 +1,47 @@
+@startuml
+' Interfaces y estados
+interface IEstado {
+    +Aprobar(Projecto): void
+    +cancelarProjecto(Projecto): void
+    +actualizarMargenGanancia(Projecto, int): void
+}
+
+class EstadoEnConstruccion implements IEstado
+class EstadoEnEvaluacion implements IEstado
+class EstadoConfirmado implements IEstado
+class EstadoCancelado implements IEstado
+
+' Proyecto
+class Projecto {
+    -fechaInicio: LocalDate
+    -fechaFin: LocalDate
+    -objetivo: String
+    -margenGanancia: int
+
+    +aprobarProjecto(): void
+    +cancelarProjecto(): void
+    +modificarMargenGanancia(int): void
+    +getCostoProjecto(): double
+    +getPrecioProjecto(): double
+    +setEstado(IEstado): void
+    +agregarTexto(String): void
+    +agregarPersona(Persona): void
+}
+
+' Persona y persona nula
+class Persona {
+    -nombre: String
+    -MontoFijo: double
+    +getMontoFijo(): double
+}
+
+class PersonaNula extends Persona {
+    +getMontoFijo(): double
+}
+
+' Relaciones
+Projecto --> IEstado : "1"
+
+
+Projecto --> Persona : 0..*
+@enduml
