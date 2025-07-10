@@ -1,6 +1,4 @@
 @startuml
-skinparam classAttributeIconSize 0
-
 
 interface IWeather {
     +getTemperaturaFahrenheit(): double
@@ -18,7 +16,7 @@ class HomeWeatherStation {
     +getTemperaturasFahrenheit(): List<Double>
 }
 
-class HomeWeatherStationAdapter {
+class HomeWeatherStationWrapper implements IWeather {
     -adaptee: HomeWeatherStation
     +getTemperaturaFahrenheit(): double
     +getPresion(): double
@@ -27,26 +25,13 @@ class HomeWeatherStationAdapter {
     +display(): String
 }
 
-HomeWeatherStationAdapter --> HomeWeatherStation
-HomeWeatherStationAdapter ..|> IWeather
-
-' Null Object
-
-
-class WeatherNulo implements IWeather {
-    +getTemperaturaFahrenheit(): double
-    +getPresion(): double
-    +getRadiacionSolar(): double
-    +getTemperaturasFahrenheit(): List<Double>
-    +display(): String
-}
-
+HomeWeatherStationWrapper --> HomeWeatherStation: contiene
 
 
 ' Decorator base
 
 
-abstract class Weather implements IWeather{
+abstract class WeatherDecorator implements IWeather{
     -component: IWeather
     +Weather(component: IWeather)
     +getTemperaturaFahrenheit(): double
@@ -61,19 +46,19 @@ abstract class Weather implements IWeather{
 ' Decoradores concretos
 
 
-class WeatherPresion extends Weather {
+class WeatherPresion extends WeatherDecorator {
     +display(): String
 }
 
-class WeatherRadiacionSolar extends Weather {
+class WeatherRadiacionSolar extends WeatherDecorator {
     +display(): String
 }
 
-class WeatherPromedioTemperaturas extends Weather {
+class WeatherPromedioTemperaturas extends WeatherDecorator {
     +display(): String
 }
 
-class WeatherTemperaturaCelsius extends Weather {
+class WeatherTemperaturaCelsius extends WeatherDecorator {
     +display(): String
 }
 
