@@ -17,7 +17,6 @@ class HomeWeatherStation {
 }
 
 class HomeWeatherStationWrapper implements IWeather {
-    -adaptee: HomeWeatherStation
     +getTemperaturaFahrenheit(): double
     +getPresion(): double
     +getRadiacionSolar(): double
@@ -32,7 +31,6 @@ HomeWeatherStationWrapper --> HomeWeatherStation: contiene
 
 
 abstract class WeatherDecorator implements IWeather{
-    -component: IWeather
     +Weather(component: IWeather)
     +getTemperaturaFahrenheit(): double
     +getPresion(): double
@@ -41,6 +39,8 @@ abstract class WeatherDecorator implements IWeather{
     +convertirFarenACelcius(F: double): double
     +display(): String
 }
+
+WeatherDecorator --> IWeather: component
 
 
 ' Decoradores concretos
