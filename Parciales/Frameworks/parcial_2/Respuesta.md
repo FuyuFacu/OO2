@@ -1,6 +1,6 @@
 Considere el siguiente extracto de codigo y diagrama de clases  UML de un framework para desarrollo de API Resis, en particular el modulo de autorizacion de acceso
 
-![[Pasted image 20250710215421.png]]
+[![250710-22h12m44s-screenshot.png](https://i.postimg.cc/cCxRJs9c/250710-22h12m44s-screenshot.png)](https://postimg.cc/TLsL7XXy)
 
 
 
