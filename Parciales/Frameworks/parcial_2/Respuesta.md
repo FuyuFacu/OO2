@@ -5,8 +5,8 @@ Considere el siguiente extracto de codigo y diagrama de clases  UML de un framew
 
 
 Este framework provee una clase API, que define la logica invariante para 
-i. procesar un request HTTP, siempre verificando que se cumplan con todos los permisos de acceso, y 
-ii. Retornar el estado HTTP 200 OK para el caso en que se cumplan todos los permisos de acceso o retornar el estado HTTP 403 FORBIDDEN en caso de que alguno de los permisos no se cumpla.
+- i. procesar un request HTTP, siempre verificando que se cumplan con todos los permisos de acceso, y 
+- ii. Retornar el estado HTTP 200 OK para el caso en que se cumplan todos los permisos de acceso o retornar el estado HTTP 403 FORBIDDEN en caso de que alguno de los permisos no se cumpla.
 
 Es responsabilidad de quienes utilizan el framework implementar la interfaz Permission para definir el comportamiento especifico para chequear los permisos de accesos (por ejemplo, para cualquier usuario registrado, solo para usuarios administradores, etc). Eso incluye tambien la logica para disparar AccessDeniedException o alguna subclase de esta.
 
