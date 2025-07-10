@@ -5,13 +5,18 @@ interface IEstado {
 
 }
 
-interface ITarea { 
- +duracionEstimada(): int 
- +tiempoUtilizadoTarea(): double 
- +avanceTarea(): double 
- +iniciarTarea() 
- +completarTarea() 
+abstract class Tarea { 
+ -nombre: String;
+ -descripcion: String;
+ -duracionEstimada: int;
+ -comienzo: long;
  +setEstado(estado: IEstado) 
+ +<<abstract>> duracionEstimada(): int 
+ +<<abstract>> tiempoUtilizadoTarea(): double 
+ +<<abstract>> avanceTarea(): double 
+ +<<abstract>> iniciarTarea() 
+ +<<abstract>> completarTarea() 
+ 
 }
 
 class EstadoNoEmpezado implements IEstado{ 
@@ -29,12 +34,8 @@ class EstadoFinalizado implements IEstado {
  +empezar(tarea: ITarea) 
 }
 
-class TareaSimple implements ITarea{ 
- -nombre: String 
- -descripcion: String 
- -duracionEstimada: int 
- -comienzo: long 
- -estadoTarea: IEstado 
+class TareaSimple extends Tarea { 
+ +<<constructor>> TareaSimple(...): void
  +duracionEstimada(): int 
  +tiempoUtilizadoTarea(): double 
  +avanceTarea(): double 
@@ -42,8 +43,8 @@ class TareaSimple implements ITarea{
  +setEstado(estado: IEstado) 
 }
 
-class TareaCompleja { 
- -tareas: List 
+class TareaCompleja extends Tarea { 
+ +<<constructor>> TareaCompleja(...): void
  +duracionEstimada(): int 
  +tiempoUtilizadoTarea(): double 
  +avanceTarea(): double 
@@ -53,10 +54,8 @@ class TareaCompleja {
 }
 
 
+Tarea -left-> "1" IEstado: contiene
+TareaCompleja --> "0..1" Tarea
 
-TareaSimple --> "1" IEstado : estadoTarea
-
-TareaCompleja -up-> ITarea : 0..*
-TareaCompleja ..|> ITarea
 
 @enduml
